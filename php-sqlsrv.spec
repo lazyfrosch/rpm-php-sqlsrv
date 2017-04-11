@@ -20,9 +20,9 @@
 
 Name:          %{?scl_prefix}php-sqlsrv
 Summary:       Microsoft Drivers for PHP for SQL Server
-%global tarversion 4.1.7preview
-Version:       4.1.7.0
-Release:       0.1.preview%{?dist}%{!?scl:%{!?nophptag:%(%{__php} -r 'echo ".".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')}}
+%global tarversion 4.1.8preview
+Version:       4.1.8.0~preview
+Release:       1%{?dist}%{!?scl:%{!?nophptag:%(%{__php} -r 'echo ".".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')}}
 License:       MIT
 Group:         Development/Languages
 
@@ -113,8 +113,9 @@ extmin=$(sed -n '/#define SQLVERSION_MINOR/{s/.*MINOR //;s/\r//;p}' sqlsrv/share
 extrel=$(sed -n '/#define SQLVERSION_PATCH/{s/.*PATCH //;s/\r//;p}' sqlsrv/shared/version.h)
 extbld=$(sed -n '/#define SQLVERSION_BUILD/{s/.*BUILD //;s/\r//;p}' sqlsrv/shared/version.h)
 extver=${extmaj}.${extmin}.${extrel}.${extbld}
-if test "x${extver}" != "x%{version}%{?prever}"; then
-   : Error: Upstream extension version is ${extver}, expecting %{version}%{?prever}.
+rpmver=%{version}
+if test "x${extver}" != "x${rpmver%%~*}"; then
+   : Error: Upstream extension version is ${extver}, expecting ${rpmver%%~*}.
    exit 1
 fi
 cd ..
@@ -258,6 +259,9 @@ fi
 
 
 %changelog
+* Tue Apr 11 2017 Remi Collet <remi@remirepo.net> - 4.1.8.0-0.1.preview
+- update to 4.1.8preview (devel)
+
 * Tue Mar  7 2017 Remi Collet <remi@remirepo.net> - 4.1.7.0-0.1.preview
 - update to 4.1.7preview (devel)
 
