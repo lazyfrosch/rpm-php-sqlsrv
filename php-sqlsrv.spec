@@ -20,8 +20,8 @@
 
 Name:          %{?scl_prefix}php-sqlsrv
 Summary:       Microsoft Drivers for PHP for SQL Server
-%global tarversion 4.1.8preview
-Version:       4.1.8.0~preview
+%global tarversion 4.1.9preview
+Version:       4.1.9.0~preview
 Release:       1%{?dist}%{!?scl:%{!?nophptag:%(%{__php} -r 'echo ".".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')}}
 License:       MIT
 Group:         Development/Languages
@@ -259,7 +259,10 @@ fi
 
 
 %changelog
-* Tue Apr 11 2017 Remi Collet <remi@remirepo.net> - 4.1.8.0-0.1.preview
+* Wed May 10 2017 Remi Collet <remi@remirepo.net> - 4.1.9.0~preview-1
+- update to 4.1.9preview (devel)
+
+* Tue Apr 11 2017 Remi Collet <remi@remirepo.net> - 4.1.8.0~preview-1
 - update to 4.1.8preview (devel)
 
 * Tue Mar  7 2017 Remi Collet <remi@remirepo.net> - 4.1.7.0-0.1.preview
