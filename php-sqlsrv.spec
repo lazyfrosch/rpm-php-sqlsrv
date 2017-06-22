@@ -22,7 +22,7 @@ Name:          %{?scl_prefix}php-sqlsrv
 Summary:       Microsoft Drivers for PHP for SQL Server
 %global tarversion 4.3.0RC1
 Version:       4.3.0~RC1
-Release:       1%{?dist}%{!?scl:%{!?nophptag:%(%{__php} -r 'echo ".".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')}}
+Release:       2%{?dist}%{!?scl:%{!?nophptag:%(%{__php} -r 'echo ".".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')}}
 License:       MIT
 Group:         Development/Languages
 
@@ -37,10 +37,10 @@ Source0:       https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}
 BuildRequires: %{?scl_prefix}php-devel > 7
 BuildRequires: %{?scl_prefix}php-pdo
 BuildRequires: %{?scl_prefix}php-pear
-BuildRequires: msodbcsql-devel >= 13
+BuildRequires: msodbcsql >= 13.1
 BuildRequires: unixODBC-devel >= 2.3.1
 
-Requires:      msodbcsql-libs%{?_isa} >= 13
+Requires:      msodbcsql%{?_isa} >= 13.1
 # ABI check
 Requires:      %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:      %{?scl_prefix}php(api)      = %{php_core_api}
@@ -87,6 +87,10 @@ extension implements PDO for accessing data in all editions of SQL Server
 
 These drivers rely on the Microsoft ODBC Driver for SQL Server to handle the
 low-level communication with SQL Server.
+
+You can download the Microsoft ODBC Driver from
+https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server
+
 
 Package built for PHP %(%{__php} -n -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')%{?scl: as Software Collection (%{scl} by %{?scl_vendor}%{!?scl_vendor:rh})}.
 
@@ -263,6 +267,9 @@ fi
 
 
 %changelog
+* Thu Jun 22 2017 Remi Collet <remi@remirepo.net> - 4.3.0~RC1-2
+- rebuild using the msodbcsql package from Microsoft repository
+
 * Thu Jun 22 2017 Remi Collet <remi@remirepo.net> - 4.3.0~RC1-1
 - update to 4.3.0RC1 (devel)
 
