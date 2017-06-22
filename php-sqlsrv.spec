@@ -20,9 +20,9 @@
 
 Name:          %{?scl_prefix}php-sqlsrv
 Summary:       Microsoft Drivers for PHP for SQL Server
-%global tarversion 4.2.0preview
-Version:       4.2.0.0~preview
-Release:       2%{?dist}%{!?scl:%{!?nophptag:%(%{__php} -r 'echo ".".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')}}
+%global tarversion 4.3.0RC1
+Version:       4.3.0~RC1
+Release:       1%{?dist}%{!?scl:%{!?nophptag:%(%{__php} -r 'echo ".".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')}}
 License:       MIT
 Group:         Development/Languages
 
@@ -63,6 +63,10 @@ Obsoletes:     php70w-sqlsrv <= %{version}
 %if "%{php_version}" > "7.1"
 Obsoletes:     php71u-sqlsrv <= %{version}
 Obsoletes:     php71w-sqlsrv <= %{version}
+%endif
+%if "%{php_version}" > "7.2"
+Obsoletes:     php72u-sqlsrv <= %{version}
+Obsoletes:     php72w-sqlsrv <= %{version}
 %endif
 %endif
 
@@ -112,7 +116,7 @@ extmaj=$(sed -n '/#define SQLVERSION_MAJOR/{s/.*MAJOR //;s/\r//;p}' sqlsrv/share
 extmin=$(sed -n '/#define SQLVERSION_MINOR/{s/.*MINOR //;s/\r//;p}' sqlsrv/shared/version.h)
 extrel=$(sed -n '/#define SQLVERSION_PATCH/{s/.*PATCH //;s/\r//;p}' sqlsrv/shared/version.h)
 extbld=$(sed -n '/#define SQLVERSION_BUILD/{s/.*BUILD //;s/\r//;p}' sqlsrv/shared/version.h)
-extver=${extmaj}.${extmin}.${extrel}.${extbld}
+extver=${extmaj}.${extmin}.${extrel}
 rpmver=%{version}
 if test "x${extver}" != "x${rpmver%%~*}"; then
    : Error: Upstream extension version is ${extver}, expecting ${rpmver%%~*}.
@@ -259,6 +263,9 @@ fi
 
 
 %changelog
+* Thu Jun 22 2017 Remi Collet <remi@remirepo.net> - 4.3.0~RC1-1
+- update to 4.3.0RC1 (devel)
+
 * Wed Jun 21 2017 Remi Collet <remi@remirepo.net> - 4.2.0.0~preview-2
 - rebuild for 7.2.0alpha2
 
