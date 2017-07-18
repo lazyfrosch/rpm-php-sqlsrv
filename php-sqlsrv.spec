@@ -17,11 +17,12 @@
 %global with_zts      0%{!?_without_zts:%{?__ztsphp:1}}
 # After 20-pdo.ini
 %global ininame       40-%{extname}.ini
+%global msodbcsqlver  13.1
 
 Name:          %{?scl_prefix}php-sqlsrv
 Summary:       Microsoft Drivers for PHP for SQL Server
-%global tarversion 4.3.0RC1
-Version:       4.3.0~RC1
+%global tarversion 4.3.0
+Version:       4.3.0
 Release:       2%{?dist}%{!?scl:%{!?nophptag:%(%{__php} -r 'echo ".".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')}}
 License:       MIT
 Group:         Development/Languages
@@ -37,7 +38,7 @@ Source0:       https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}
 BuildRequires: %{?scl_prefix}php-devel > 7
 BuildRequires: %{?scl_prefix}php-pdo
 BuildRequires: %{?scl_prefix}php-pear
-BuildRequires: msodbcsql >= 13.1
+BuildRequires: msodbcsql >= %{msodbcsqlver}
 BuildRequires: unixODBC-devel >= 2.3.1
 
 Requires:      msodbcsql%{?_isa} >= 13.1
@@ -83,7 +84,7 @@ the reading and writing of SQL Server data from within PHP scripts.
 
 The SQLSRV extension provides a procedural interface while the PDO_SQLSRV
 extension implements PDO for accessing data in all editions of SQL Server
-2005 and later (including Azure SQL DB).
+2008 R2 and later (including Azure SQL DB).
 
 These drivers rely on the Microsoft ODBC Driver for SQL Server to handle the
 low-level communication with SQL Server.
@@ -91,7 +92,7 @@ low-level communication with SQL Server.
 You can download the Microsoft ODBC Driver from
 https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server
 
-
+Package built using msodbcsql version %{msodbcsqlver}.
 Package built for PHP %(%{__php} -n -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')%{?scl: as Software Collection (%{scl} by %{?scl_vendor}%{!?scl_vendor:rh})}.
 
 
@@ -267,6 +268,12 @@ fi
 
 
 %changelog
+* Tue Jul 18 2017 Remi Collet <remi@remirepo.net> - 4.3.0-2
+- rebuild for PHP 7.2.0beta1 new API
+
+* Fri Jul  7 2017 Remi Collet <remi@remirepo.net> - 4.3.0-1
+- update to 4.3.0 (stable)
+
 * Thu Jun 22 2017 Remi Collet <remi@remirepo.net> - 4.3.0~RC1-2
 - rebuild using the msodbcsql package from Microsoft repository
 
