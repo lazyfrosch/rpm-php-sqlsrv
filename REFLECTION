@@ -1,4 +1,4 @@
-Extension [ <persistent> extension #129 sqlsrv version 4.3.0 ] {
+Extension [ <persistent> extension #130 sqlsrv version 5.0.0-preview ] {
 
   - INI {
     Entry [ sqlsrv.WarningsReturnAsErrors <ALL> ]
